@@ -104,5 +104,5 @@ saveRDS(RNA_all, file="scRNA_YY_combined.rds")
 
 p1 <- DimPlot(RNA_all, reduction = "umap", group.by="cell.line")
 
-ggsave(file="./scRNA_merged_UMAP_cell_lines.pdf.pdf", plot=p1, width=10, height=10)
+ggsave(file="./scRNA_merged_UMAP_cell_lines.pdf", plot=p1, width=10, height=10)
 

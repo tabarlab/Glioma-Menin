@@ -9,6 +9,7 @@ library(future)
 plan(multicore, workers = 10)
 options(future.globals.maxSize = 50 * 1024 ^ 3) # for 50 Gb RAM
 
+######## Read Seurat Object
 RNA_all <- readRDS('./scRNA_YY_combined.rds')
 
 ######## Progenitor Gene Module from Ruiz-Moreno et al. 2022 (https://doi.org/10.1101/2022.08.27.505439)
@@ -26,8 +27,8 @@ progenitor_genes <- c('CDK4', 'TUBA1A', 'TUBB2B', 'SOX4', 'MARCKSL1',
 RNA_all <- AddModuleScore_UCell(RNA_subset, features = list(progenitor_genes), name = "progenitor")
 
 ######## Figure 6B
-RNA_subset[[]] %>% 
-  ggplot(aes(x=new.cell.line, y=signature_1progenitor, fill=MEN1.sensitivity)) +
+RNA_all[[]] %>% 
+  ggplot(aes(x=cell.line, y=signature_1progenitor, fill=MEN1.sensitivity)) +
   geom_boxplot()+
   scale_x_discrete(limits=c("MSK-20","MSK-19", "MSK-28","MSK-23", 'MSK-18', "MSK-04")) + 
   scale_fill_manual(values = c('#EB466F', "#26547C")) +
@@ -44,8 +45,8 @@ RNA_subset[[]] %>%
 ggsave(filename = 'boxplot_cell_line_progenitorScore.pdf', plot = p1, height = 10, width = 10, dpi = 300)
 
 ######## Extended Figure 6C
-RNA_subset[[]] %>% 
-  ggplot(aes(x=new.cell.line, y=signature_1progenitor, fill=MEN1.sensitivity)) +
+RNA_all[[]] %>% 
+  ggplot(aes(x=cell.line, y=signature_1progenitor, fill=MEN1.sensitivity)) +
   #geom_hline(yintercept = 0, color='red', size=.5) +
   geom_boxplot()+
   scale_x_discrete(limits=c("MSK-19", "MSK-19KO")) +
